@@ -12,30 +12,30 @@ export const COMPLETE_PLAN = 'COMPLETE_PLAN';
 //Action creators
 
 export function addPlan(planName) {
-	return {type:ADD_PLAN, planName}
+  return {type:ADD_PLAN, planName}
 }
 
 export function deletePlan(planName) {
-	return {type:DELETE_PLAN, planName}
+  return {type:DELETE_PLAN, planName}
 }
 
 export function addExercise(planName,excerciseName,sets,rest){
-	return {type:ADD_EXERCISE, planName, excerciseName, sets, rest}
+  return {type:ADD_EXERCISE, planName, excerciseName, sets, rest}
 }
 
 export function deleteExercise(planName,excerciseName){
-	return {type:DELETE_EXERCISE, planName, excerciseName}
+  return {type:DELETE_EXERCISE, planName, excerciseName}
 }
 
 export function startPlan(planName){
-	return {type:START_PLAN, planName}
+  return {type:START_PLAN, planName}
 }
 
 export function nextSet (){
-	return {type:NEXT_SET}
+  return {type:NEXT_SET}
 }
 
 export function completePlan(){
-	return {type:COMPLETE_PLAN}
+  return {type:COMPLETE_PLAN}
 }
 

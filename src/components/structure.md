@@ -1,7 +1,7 @@
 app 
  -planner
-	-plan
-	-exercise
+  -plan
+  -exercise
  -main
-	-Planlist
-	-Session
+  -Planlist
+  -Session

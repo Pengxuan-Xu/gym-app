@@ -1,6 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Planner from './planner.js'
+import PlannerApp from './planner.js'
+import MainApp from './main.js'
+import {Link, Route} from 'react-router-dom'
 
 class App extends React.Component {
   constructor(props){
@@ -10,7 +11,8 @@ class App extends React.Component {
   render(){
     return (
       <div>
-        <Planner />
+           <Route path="/planner" component={PlannerApp}/>
+           <Route path="/" exact = {true} component={MainApp}/>
       </div>
     )
   }

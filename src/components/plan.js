@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {Link, Route} from 'react-router-dom'
 
 export class PlanList extends React.Component{
   constructor(props){
@@ -7,7 +7,6 @@ export class PlanList extends React.Component{
   }
   
   render(){
-    let current = this.props.current;
     const plans = this.props.plans.map((item) => {
       let highlight = null;
       if(item.toString() === this.props.current) {
@@ -28,13 +27,50 @@ export class PlanList extends React.Component{
         </ul>
       </div>
       
-      <div>
-        <input type="button" value="X" onClick={() => this.props.deletePlan()}/>
-      </div>
+
       
     </div>
   )}
 }
+
+export class DeleteButton extends React.Component{
+  constructor(props){
+    super (props);
+  }
+  
+  render(){
+  return (
+  <div className="row">
+    <div className="col-sm-4">
+    <input type="button" className = "ctr btn btn-primary btn-sm" value="X" onClick={() => this.props.deletePlan()}/>
+    </div>
+  </div>
+  )
+  }
+}
+
+export class StartButton extends React.Component{
+  constructor(props){
+    super (props);
+  }
+  
+  render(){
+  return (
+  <div className="row">
+    <div className="col-sm-4">
+    <button type="button" className = "ctr btn btn-primary btn-sm">
+      <Link className="link" to ='/planner'>Edit Plan</Link>
+    </button>
+    </div>
+  
+    <div className="col-sm-4">
+    <input type="button" className = "ctr btn btn-primary btn-sm" value="StartPlan" onClick={() => this.props.startPlan()}/>
+    </div>
+  </div>
+  )
+  }
+}
+
 
 export class PlanAdd extends React.Component{
   constructor(props){
@@ -50,7 +86,7 @@ export class PlanAdd extends React.Component{
     return (
       <div className="plan">
         <input type="text" value={this.state.plan} onChange = {(e)=>this.onChange(e)} />
-        <input type="button" value="+" onClick={() => this.props.addPlan(this.state.plan)}/>
+        <input type="button" className = "add btn btn-primary btn-sm" value="+" onClick={() => this.props.addPlan(this.state.plan)}/>
       </div>
   )}
 }

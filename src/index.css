@@ -1,20 +1,20 @@
 body {
-  font: 15px/1.5 Helvetica, sans-serif;
   padding: 0;
   margin:0;
   
 }
 
 .container {
-  max-width: 600px;
+  max-width: 768px;
   margin: auto;
   overflow: hidden;
 }
 
+
 h1 {
-  font: 20px;
+  font-size:26px;
   margin:0;
-  padding:0;
+  padding:10px 0 10px 0;
 }
 
 section {
@@ -28,8 +28,15 @@ section:not(:first-child){
 
 .item-list {
   border: 1px solid lightgrey;
-  float:left;
-  width: 90%;
+  width: 100%;
+}
+
+.ctr {
+  width: 100%;
+}
+
+.add {
+  width: 30px;
 }
 
 ul {
@@ -49,17 +56,16 @@ li {
 }
 
 .legend {
+  font-size:20px;
   padding:0;
   margin:0;
   margin-top:10px;
 }
 
-.plan:after , .excercise:after {
-    content: "";
-    display: table;
-    clear: both;
+legend {
+  font-size: 15px;
+  margin:3px;
 }
-
 
 .highlight{
   background-color: #cbdaf2;
@@ -69,19 +75,16 @@ li:hover {
   background-color: #cbdaf2;
 }
 
-input[type=button] {
-  width:8%
+.link {
+  color: white;
 }
 
-.excercise input[type=text] {
-  width : 100%;
+.link:hover {
+  color: white;
 }
 
-.plan input[type=text] {
-  width : 90%;
-}
-
-fieldset {
-
-  width:33%
+.alert {
+  text-align:center;
+  Margin:0;
+  Padding:5px;
 }

@@ -1,22 +1,49 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {PlanList,PlanAdd} from './plan.js'
-import {ExcerciseList,ExcerciseAdd} from './excercise.js'
+import {PlanList,DeleteButton,PlanAdd} from './plan.js'
+import {ExerciseList,ExerciseAdd} from './exercise.js'
+import { connect } from 'react-redux'
+import {Link, Route} from 'react-router-dom'
+
+import {addPlan,
+  deletePlan,
+  addExercise,
+  deleteExercise} from './containers/actions.js'
+
+const mapStateToProps = state => {
+  return {
+    plan: state.plan
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addPlan: (planName) => {
+      dispatch(addPlan(planName));
+    },
+    
+    deletePlan: (planName) => {
+      dispatch(deletePlan(planName));
+    },
+    
+    addExercise: (planName,exerciseName,sets,rest) => {
+      dispatch(addExercise(planName,exerciseName,sets,rest));
+    },
+    
+    deleteExercise: (planName,index) => {
+      dispatch(deleteExercise(planName,index));
+    }
+    
+  }
+}
+    
+
 
 class Planner extends React.Component{
   constructor(props){
     super (props);
+    const defaultKey = Object.keys(props.plan);
     this.state = {
-      current : "Chest",
-      plan : {
-        Chest : [ {name: "Bench Press", sets: 5, rest : 60},
-              {name: "Push Up", sets: 5, rest : 60}],
-        Leg :   [ {name: "Squat", sets: 5, rest : 60},
-              {name: "Leg Extension", sets: 5, rest : 60}],
-        Shoulder : [ {name: "Shoulder Press", sets: 5, rest : 60},
-              {name: "Lateral Rise", sets: 5, rest : 60},
-              {name: "Front Rise", sets: 5, rest : 60}]
-      }
+      current : defaultKey[0]
     }
   }
   
@@ -24,62 +51,55 @@ class Planner extends React.Component{
     this.setState( {current : e.target.childNodes[0].nodeValue});
   }
   
-  addPlan(planName){
-    this.setState (
-      {plan : Object.assign({},this.state.plan,{ [planName] : []})}
-    )
-  }
+  addPlan(planName){this.props.addPlan(planName);}
   
   deletePlan() {
-    let newPlan = Object.assign({},this.state.plan);
-    delete newPlan[this.state.current];
-    let defaultKey = Object.keys(newPlan);
-  
-    this.setState ( {current: defaultKey[0], plan: newPlan});
+    this.props.deletePlan(this.state.current);
+    this.setState ( {current: ''});
   }
   
-  updateExcercise (newExcercise) {
-    let newPlan = Object.assign ({},this.state.plan, {[this.state.current]:newExcercise});
-
-    this.setState ( {plan : newPlan});
+  addExercise(name,sets,rest){
+    this.props.addExercise(this.state.current,name,sets,rest);
   }
   
-  deleteExcercise(excerciseIndex){
-    let newExcercise = this.state.plan[this.state.current].slice(0);
-    newExcercise.splice(excerciseIndex,1);
-    this.updateExcercise (newExcercise);
+  
+  deleteExercise(index){
+    this.props.deleteExercise(this.state.current,index);
   }
   
-  addExcercise(name, sets, rest){
-    let newExcercise = this.state.plan[this.state.current].slice(0);
-    newExcercise.push({name, sets, rest});
-    this.updateExcercise (newExcercise);
-  }
-  
-
-    
   
   render(){
     
     return (
     <div className="container">
       <section>
-        <PlanList plans ={Object.keys(this.state.plan)} 
+        <PlanList plans ={Object.keys(this.props.plan)} 
               current = {this.state.current}
-              choosePlan = {(e) => this.choosePlan(e)}
-              deletePlan = {( ) => this.deletePlan()}/>
+              choosePlan = {(e) => this.choosePlan(e)}/>
+        <DeleteButton deletePlan = {( ) => this.deletePlan()} />
         <p className="legend"> Add New Plan:</p>
         <PlanAdd  addPlan = {(plan) => this.addPlan(plan)}/>
       </section>
       
       <section>
-        <ExcerciseList excercise={this.state.plan[this.state.current]}
-                deleteExcercise = { (excerciseIndex)=>this.deleteExcercise(excerciseIndex)}/>
-        <p className="legend"> Add New Excercise:</p>
-        <ExcerciseAdd addExcercise = {(name, sets,rest)=> this.addExcercise(name,sets,rest)}/>
+        <ExerciseList exercise={this.props.plan[this.state.current]}
+                deleteExercise = { (index)=>this.deleteExercise(index)}/>
+        <p className="legend"> Add New Exercise:</p>
+        <ExerciseAdd addExercise = {(name,sets,rest)=> this.addExercise(name,sets,rest)}/>
+      </section>
+      
+      <section>
+        <button className = "btn btn-primary btn-sm"><Link className ="link" to="/">Save Changes</Link></button>
       </section>
     </div>
   )}
 }
 
-export default Planner;
+const PlannerApp = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Planner)
+
+
+
+export default PlannerApp;

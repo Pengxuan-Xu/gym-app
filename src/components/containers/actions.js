@@ -19,12 +19,12 @@ export function deletePlan(planName) {
   return {type:DELETE_PLAN, planName}
 }
 
-export function addExercise(planName,excerciseName,sets,rest){
-  return {type:ADD_EXERCISE, planName, excerciseName, sets, rest}
+export function addExercise(planName,exerciseName,sets,rest){
+  return {type:ADD_EXERCISE, planName, exerciseName, sets, rest}
 }
 
-export function deleteExercise(planName,excerciseName){
-  return {type:DELETE_EXERCISE, planName, excerciseName}
+export function deleteExercise(planName,index){
+  return {type:DELETE_EXERCISE, planName, index}
 }
 
 export function startPlan(planName){

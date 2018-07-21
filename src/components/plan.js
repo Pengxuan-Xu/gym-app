@@ -58,9 +58,9 @@ export class StartButton extends React.Component{
   return (
   <div className="row">
     <div className="col-sm-4">
-    <button type="button" className = "ctr btn btn-primary btn-sm">
-      <Link className="link" to ='/planner'>Edit Plan</Link>
-    </button>
+    
+      <Link className="link" to ='/planner'><input type="button" className = "ctr btn btn-primary btn-sm" value ="Edit Plan" /></Link>
+
     </div>
   
     <div className="col-sm-4">

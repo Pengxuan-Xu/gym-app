@@ -21,7 +21,12 @@ function gymApp (state, action) {
       return newState;
     
     case START_PLAN:
-      newState = Object.assign({},state, {current: state.plan[action.planName]});
+      let newCurrent = [];
+      state.plan[action.planName].forEach ( (item) =>{
+      newCurrent.push ( Object.assign({},item));
+      })
+      
+      newState = Object.assign({},state, {current: newCurrent});
       return newState;
     
     case NEXT_SET:

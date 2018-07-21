@@ -16,8 +16,9 @@ export class ExerciseList extends React.Component{
     let exercise;
     if(this.props.exercise !== undefined) {
       exercise = this.props.exercise.map((item,index) =>{
+
           let highlight="null"
-          if(this.state.index === index) highlight="highlight"
+          if(parseInt(this.state.index) === parseInt(index)) highlight="highlight"
           return <li key={item.name.toString()} 
                 className={highlight} 
                 index={index}

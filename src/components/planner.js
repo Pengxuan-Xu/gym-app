@@ -89,7 +89,7 @@ class Planner extends React.Component{
       </section>
       
       <section>
-        <button className = "btn btn-primary btn-sm"><Link className ="link" to="/">Save Changes</Link></button>
+        <Link className ="link" to="/"><input type="button" className = "btn btn-primary btn-sm" value="Save Changes" /></Link>
       </section>
     </div>
   )}

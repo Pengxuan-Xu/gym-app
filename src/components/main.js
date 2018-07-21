@@ -54,7 +54,7 @@ class Main extends React.Component{
   }
   
   timer(){
-    console.log("run");
+
     const cancle = setInterval(() =>{ 
       if(this.state.timer !== 0){
         this.setState ({timer: this.state.timer-1});

@@ -30,7 +30,11 @@ db.collection("State").doc('mvp6wJl6PmOnYwWCyxVK').get().then((doc) => {
   const store = createStore(gymApp,initialState)
   let updateRef = db.collection("State").doc('mvp6wJl6PmOnYwWCyxVK');
   store.subscribe(() => {
+<<<<<<< HEAD
     console.log("hello");
+=======
+    console.log("damn")
+>>>>>>> b
     updateRef.update(store.getState())
 
   }

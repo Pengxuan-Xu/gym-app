@@ -92,9 +92,7 @@ class Main extends React.Component{
           this.startPlan()
         } }/>
       </section>
-      
-      
-      
+
       <section>
         <CurrentExercise exercise={this.props.current}/>
         <Control timer={this.state.timer}

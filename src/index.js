@@ -24,22 +24,23 @@ firestore.settings(settings);
 // Initialize Cloud Firestore through Firebase
 var db = firebase.firestore();
 
+
 db.collection("State").doc('mvp6wJl6PmOnYwWCyxVK').get().then((doc) => {
   let initialState = doc.data();
   const store = createStore(gymApp,initialState)
   let updateRef = db.collection("State").doc('mvp6wJl6PmOnYwWCyxVK');
   store.subscribe(() => {
+    console.log(store.getState())
     updateRef.update(store.getState())
+
   }
   )
 
   ReactDOM.render(
-  <Provider store={store}>
+    <Provider store={store}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
   </Provider>
-
   , document.getElementById('root'));
-
  });

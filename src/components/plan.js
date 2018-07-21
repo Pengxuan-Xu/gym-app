@@ -8,13 +8,13 @@ export class PlanList extends React.Component{
   
   render(){
     const plans = this.props.plans.map((item) => {
-      let highlight = null;
-      if(item.toString() === this.props.current) {
-        highlight = "highlight";
-      }
-      return  (<li key={item.toString()} 
-            className = {highlight}
-            onClick = {this.props.choosePlan}>{item}</li>);
+      return  (
+        <li key={item.toString()} 
+          className={item.toString() === this.props.current ? "highlight" : ""}
+          onClick= {this.props.choosePlan}
+        >
+          {item}
+        </li>);
     });
       
     return (

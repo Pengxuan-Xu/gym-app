@@ -9,51 +9,38 @@ import {ADD_PLAN,
 
 //initial state
 
-
 function gymApp (state, action) {
-  let newState;
   switch (action.type){
     case ADD_PLAN:
     case DELETE_PLAN:
     case ADD_EXERCISE:
     case DELETE_EXERCISE:
-      newState = Object.assign({},state, {plan: planUpdate(state.plan, action)});
-      return newState;
-    
+      return {...state, plan: planUpdate(state.plan, action)};
+
     case START_PLAN:
-      let newCurrent = [];
-    
-      state.plan[action.planName].forEach ( (item) =>{
-      newCurrent.push ( Object.assign({},item));
-      })
-    
-      
-      newState = Object.assign({},state, {current: newCurrent});
-      return newState;
-    
+      return {...state, current: [...state.plan[action.planName]] }
+
     case NEXT_SET:
       if (state.current.length === 0) {
         return state;
-      }else if (state.current[0].sets === 1){
-        let newCurrent = state.current.slice(0);
-        newCurrent.shift();
-        newState = Object.assign({},state, {current: newCurrent});
-        return newState;
-      }else {
-        let newCurrent = state.current.slice(0);
-        newCurrent[0].sets = newCurrent[0].sets -1;
-        newState = Object.assign({},state, {current: newCurrent});
-        return newState;
+
+      } else if (state.current[0].sets === 1){
+        return { ...state, current: state.current.slice(1) }
+      } else {
+        const current = state.current.map((planItem,index) => {
+          const newItem = {...planItem};
+          if (index === 0) newItem.sets--;
+          return newItem;
+        });
+        return { ...state, current };
       }
-    
+
     case COMPLETE_PLAN:
-      newState = Object.assign({},state, {current: []});
-      return newState;
-    
+      return { ...state, current: [] };
+
     default:
       return state;
   }
-      
 }
 
 function planUpdate (state, action) {

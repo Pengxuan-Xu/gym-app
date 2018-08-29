@@ -10,6 +10,72 @@ body {
   overflow: hidden;
 }
 
+/*login page*/
+.showcase{
+  font-family: 'helvetica neue';
+  height: 460px;
+  background:white url("./img/small.jpg") no-repeat center;
+  background-size: 400px 460px;
+  max-width:400px;
+  width:100%;
+  margin:auto;
+}
+
+.logo{
+  padding:10px 0px 120px 20px;
+  font-family: 'helvetica neue';
+  font-size: 20px;
+  color:white;
+}
+
+.slogan {
+  font-family: 'helvetica neue';
+  font-size: 24px;
+  margin:auto;
+  text-align: center;
+  color:white;
+  padding: 5px 0px;
+}
+
+.username{
+  width: 150px;
+  margin:auto;
+  margin-top: 40px;
+}
+.wrapper {
+  width: 100%;
+  text-align: center;
+}
+
+.loginbtn{
+  margin-top: 10px;
+  width: 90px;
+  text-align: center;
+}
+
+.intro{
+  margin-top: 100px;
+}
+
+
+.intro h1, .intro h2 {
+  
+  font-family: 'helvetica neue';
+  font-size: 14px;
+  margin:auto;
+  text-align: center;
+  color:darkgrey;
+  padding: 5px 0px;
+}
+
+.intro h1{
+  font-size: 16px;
+  color:#303030;
+}
+
+
+
+/*Main Page*/
 
 h1 {
   font-size:26px;

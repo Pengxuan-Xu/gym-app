@@ -4,13 +4,22 @@ import {ADD_PLAN,
   DELETE_EXERCISE,
   START_PLAN,
   NEXT_SET,
-  COMPLETE_PLAN} from './actions.js'
+  COMPLETE_PLAN,
+  LOAD_USER_PLAN} from './actions.js'
+import { initializeApp } from 'firebase';
+
+let initialValue = {
+  user:'',
+  plan:{},
+  current:[]
+}
 
 
-//initial state
 
-function gymApp (state, action) {
+function gymApp (state=initialValue, action) {
   switch (action.type){
+    case LOAD_USER_PLAN:
+      return {...action.state}
     case ADD_PLAN:
     case DELETE_PLAN:
     case ADD_EXERCISE:

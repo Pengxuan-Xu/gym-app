@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {PlanList,StartButton} from './plan.js'
-import {CurrentExercise,Control} from './exercise.js'
+import {PlanList,StartButton} from './elements/plan.js'
+import {CurrentExercise,Control} from './elements/exercise.js'
 import { connect } from 'react-redux'
 import {Link, Route} from 'react-router-dom'
 
@@ -11,7 +11,7 @@ import {addPlan,
   deleteExercise,
   startPlan,
   nextSet,
-  completePlan} from './containers/actions.js'
+  completePlan} from './redux/actions.js'
   
 const mapStateToProps = state => {
   return {
@@ -35,6 +35,21 @@ const mapDispatchToProps = dispatch => {
     }
 
     
+  }
+}
+
+class Planitem extends React.Component{
+  constructor(props){
+    super(props);
+    this.state({
+      showexc:false,
+    })
+  }
+
+  render(){
+    <div>
+      <div>this.props</div>
+    </div>
   }
 }
 

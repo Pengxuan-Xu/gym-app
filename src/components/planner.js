@@ -1,13 +1,13 @@
 import React from 'react';
-import {PlanList,DeleteButton,PlanAdd} from './plan.js'
-import {ExerciseList,ExerciseAdd} from './exercise.js'
+import {PlanList,DeleteButton,PlanAdd} from './elements/plan.js'
+import {ExerciseList,ExerciseAdd} from './elements/exercise.js'
 import { connect } from 'react-redux'
 import {Link, Route} from 'react-router-dom'
 
 import {addPlan,
   deletePlan,
   addExercise,
-  deleteExercise} from './containers/actions.js'
+  deleteExercise} from './redux/actions.js'
 
 const mapStateToProps = state => {
   return {

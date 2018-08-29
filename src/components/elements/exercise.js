@@ -14,7 +14,8 @@ export class ExerciseList extends React.Component{
     
   render(){
     let exercise;
-    if(this.props.exercise !== undefined) {
+    
+    if(!(this.props.exercise == undefined)) {
       exercise = this.props.exercise.map((item,index) =>{
 
           let highlight="null"
@@ -114,23 +115,26 @@ export class Control extends React.Component{
   render(){
 
     return (
-  
-    <div className = "row">
-    
-      <div className ="col-xs-4 ">
-        <div className="alert alert-info">
-          <strong>Rest Time:</strong> {this.props.timer}
+    <div>
+      <div className = "row">
+      
+        <div className =" col-xs-10 col-xs-offset-1 countdown">
+          <div className="alert alert-info countdown">
+            <strong>Rest Time:</strong> {this.props.timer}
+          </div>
         </div>
       </div>
-      
-      <div className ="col-xs-4">
-          <input type="button" className = "ctr btn btn-primary btn-sm" value="Next Set" onClick={() => this.props.nextSet()}/>
-      </div>
+
+      <div className = "row">
+        <div className ="col-xs-6">
+            <input type="button" className = "ctr btn btn-primary btn-sm" value="Next Set" onClick={() => this.props.nextSet()}/>
+        </div>
+          
+      <div className ="col-xs-6">
         
-      <div className ="col-xs-4">
-      
-        <input type="button" className = "ctr btn btn-primary btn-sm" value="Complete Session" onClick={() => this.props.completePlan()}/>
+          <input type="button" className = "ctr btn btn-primary btn-sm" value="Complete Session" onClick={() => this.props.completePlan()}/>
       </div>
+    </div>
     
     
     
@@ -164,29 +168,34 @@ export class ExerciseAdd extends React.Component{
     return (
     <div className="exercise">
     <div className ="row">
-      <div className ="col-xs-4">
+      <div className ="col-xs-12">
         <fieldset>
           <legend>Exercise</legend>
           <input type="text" 
+              className = 'form-control'
               value={this.state.exercise} 
               onChange ={(e)=>this.exerciseOnChange(e)} />
         </fieldset>
       </div>
-      
-      <div className ="col-xs-4">
+    </div>
+
+    <div className ='row'>
+      <div className ="col-xs-6">
         <fieldset>
           <legend>No. of Sets</legend>
           <input type="text" 
               value={this.state.sets} 
+              className = 'form-control'
               onChange ={(e)=>this.setsOnChange(e)} />
         </fieldset>
       </div>
 
-      <div className ="col-xs-4">
+      <div className ="col-xs-6">
         <fieldset>
           <legend>Sec of Rest</legend>
           <input type="text" 
               value={this.state.rest} 
+              className = 'form-control'
               onChange ={(e)=>this.restOnChange(e) }/>
         </fieldset>
       </div>
@@ -194,8 +203,8 @@ export class ExerciseAdd extends React.Component{
     </div>
       <div>
         <input type="button" 
-            value="+" 
-            className = "add btn btn-primary btn-sm"
+            value="Add Exercise" 
+            className = "add btn btn-primary"
             onClick={() => this.props.addExercise(this.state.exercise,
                                 this.state.sets,
                                 this.state.rest)}/>

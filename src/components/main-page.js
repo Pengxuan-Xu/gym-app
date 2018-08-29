@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {PlanList,StartButton} from './elements/plan.js'
 import {CurrentExercise,Control} from './elements/exercise.js'
 import { connect } from 'react-redux'
-import {Link, Route} from 'react-router-dom'
+import {Link, Route,Redirect} from 'react-router-dom'
 
 import {addPlan,
   deletePlan,
@@ -38,20 +38,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-class Planitem extends React.Component{
-  constructor(props){
-    super(props);
-    this.state({
-      showexc:false,
-    })
-  }
-
-  render(){
-    <div>
-      <div>this.props</div>
-    </div>
-  }
-}
 
 class Main extends React.Component{
   constructor(props){
@@ -59,61 +45,43 @@ class Main extends React.Component{
     const defaultKey = Object.keys(props.plan);
     this.state = {
       current : defaultKey[0],
-      timer : 0 ,
-      stop : undefined
+      redirect:false,
     }
   }
   
   choosePlan(e){
-    this.setState( {current : e.target.childNodes[0].nodeValue});
+    this.setState( {current : e.target.getAttribute('planvalue')});
   }
-  
-  timer(){
 
-    const cancle = setInterval(() =>{ 
-      if(this.state.timer !== 0){
-        this.setState ({timer: this.state.timer-1});
-      }
-    }, 1000);
-    this.setState ( {stop: cancle});
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/current' />
+    }
   }
   
   startPlan(){
     this.props.startPlan(this.state.current);
+    this.setState(this.setState({
+      redirect:true
+    }))
    }
-   
-  completePlan(){
-    this.setState( {timer: 0});
-    this.props.completePlan();}
   
-  nextSet() {
-    this.setState( {timer: [this.props.current[0].rest]});
-    this.props.nextSet();
-    clearInterval(this.state.stop);
-    this.timer();
-  }
   
   
   render(){
-
+    
     return (
+    
     <div className="container">
+    {this.renderRedirect()}
       <section>
         <PlanList plans ={Object.keys(this.props.plan)} 
               current = {this.state.current}
               choosePlan = {(e) => this.choosePlan(e)}
               />
-        <StartButton startPlan = {( ) => {
+        <StartButton startPlan = {() => {
           this.startPlan()
         } }/>
-      </section>
-
-      <section>
-        <CurrentExercise exercise={this.props.current}/>
-        <Control timer={this.state.timer}
-          nextSet = {()=>this.nextSet()}
-          completePlan = { ()=>this.completePlan()}
-        />
       </section>
       
 

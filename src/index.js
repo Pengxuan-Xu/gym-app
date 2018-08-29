@@ -19,3 +19,6 @@ const store = createStore(gymApp,applyMiddleware(thunk));
   </Provider>
   , document.getElementById('root'))
  
+store.subscribe(()=>{
+  console.log(store.getState())
+})

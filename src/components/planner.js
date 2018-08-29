@@ -2,16 +2,18 @@ import React from 'react';
 import {PlanList,DeleteButton,PlanAdd} from './elements/plan.js'
 import {ExerciseList,ExerciseAdd} from './elements/exercise.js'
 import { connect } from 'react-redux'
-import {Link, Route} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 
 import {addPlan,
   deletePlan,
   addExercise,
-  deleteExercise} from './redux/actions.js'
+  deleteExercise,
+  savePlan} from './redux/actions.js'
 
 const mapStateToProps = state => {
   return {
-    plan: state.plan
+    plan: state.plan,
+    user:state.user
   }
 }
 
@@ -31,8 +33,11 @@ const mapDispatchToProps = dispatch => {
     
     deleteExercise: (planName,index) => {
       dispatch(deleteExercise(planName,index));
+    },
+
+    savePlan: (username) => {
+      dispatch(savePlan(username));
     }
-    
   }
 }
     
@@ -43,12 +48,13 @@ class Planner extends React.Component{
     super (props);
     const defaultKey = Object.keys(props.plan);
     this.state = {
-      current : defaultKey[0]
+      current : defaultKey[0],
+      redirect:false,
     }
   }
   
   choosePlan(e){
-    this.setState( {current : e.target.childNodes[0].nodeValue});
+    this.setState( {current : e.target.getAttribute('planvalue')});
   }
   
   addPlan(planName){this.props.addPlan(planName);}
@@ -59,20 +65,33 @@ class Planner extends React.Component{
   }
   
   addExercise(name,sets,rest){
+    console.log(this.state.current, name, sets,rest)
     this.props.addExercise(this.state.current,name,sets,rest);
   }
   
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/main' />
+    }
+  }
   
   deleteExercise(index){
     this.props.deleteExercise(this.state.current,index);
   }
   
+  save(){
+    this.props.savePlan(this.props.user)
+    this.setState(this.setState({
+        redirect: true
+      }))
+  }
   
   render(){
-    
+    {this.renderRedirect()}
     return (
     <div className="container">
-      <section>
+      <h2>Part 1:</h2>
+      <section className='edit-plan'>
         <PlanList plans ={Object.keys(this.props.plan)} 
               current = {this.state.current}
               choosePlan = {(e) => this.choosePlan(e)}/>
@@ -81,7 +100,8 @@ class Planner extends React.Component{
         <PlanAdd  addPlan = {(plan) => this.addPlan(plan)}/>
       </section>
       
-      <section>
+      <h2>Part 2:</h2>
+      <section className='edit-exc'>
         <ExerciseList exercise={this.props.plan[this.state.current]}
                 deleteExercise = { (index)=>this.deleteExercise(index)}/>
         <p className="legend"> Add New Exercise:</p>
@@ -89,7 +109,7 @@ class Planner extends React.Component{
       </section>
       
       <section>
-        <Link className ="link" to="/"><input type="button" className = "btn btn-primary btn-sm" value="Save Changes" /></Link>
+        <input type="button" className = "btn btn-success savebtn" onClick={()=>this.save()} value ="Save Changes" />
       </section>
     </div>
   )}

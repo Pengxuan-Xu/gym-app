@@ -9,7 +9,6 @@ import {ADD_PLAN,
 import { initializeApp } from 'firebase';
 
 let initialValue = {
-  user:'',
   plan:{},
   current:[]
 }
@@ -27,6 +26,7 @@ function gymApp (state=initialValue, action) {
       return {...state, plan: planUpdate(state.plan, action)};
 
     case START_PLAN:
+      console.log(action.planName);
       return {...state, current: [...state.plan[action.planName]] }
 
     case NEXT_SET:
@@ -64,6 +64,7 @@ function planUpdate (state, action) {
       
     case ADD_EXERCISE:
     case DELETE_EXERCISE:
+      console.log(state[action.planName], action);
       let newExercise = exerciseUpdate(state[action.planName], action);
       let newPlan2 = Object.assign({},state, {[action.planName]:newExercise});
       return newPlan2;
@@ -74,6 +75,7 @@ function planUpdate (state, action) {
 }
 
 function exerciseUpdate (state,action) {
+
   switch (action.type){
     case ADD_EXERCISE:
       let newExercise1 = state.slice(0);

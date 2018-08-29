@@ -41,11 +41,11 @@ export function completePlan(){
 }
 
 export const loadUserPlan = (username)=>{
-  return (dispatch,getState) =>{
+  return (dispatch) =>{
     let initial;
     db.collection("State").doc(username).get().then((doc) => {
       initial={
-        user: username,
+        user:username,
         current:[],
         plan:{},
       }
@@ -56,9 +56,15 @@ export const loadUserPlan = (username)=>{
         initial = doc.data();
         dispatch(initialState(initial));
       }
-    }).then(
-      
-    )
+    })
+  }
+}
+
+
+export const savePlan = (username)=>{
+  return (dispatch,getState) =>{
+    
+    db.collection("State").doc(username).update(getState());
   }
 }
 
